@@ -32,8 +32,8 @@ public class Bullet : MonoBehaviour
         if (enemyColor == BulletColor)
         {
             Destroy(enemy.gameObject);
+        }
 
             Destroy(gameObject);
         }
     }
-}
