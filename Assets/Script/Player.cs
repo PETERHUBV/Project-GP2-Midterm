@@ -64,13 +64,41 @@ public class Player : MonoBehaviour
         }
     }
 
-    void CheckGameOver(Collider EnemyCollider)
+    public void CheckGameOver(Collider EnemyCollider)
     {
         if (EnemyCollider.transform.position == transform.position)
         {
             GameManager.GameOver();
         }
     }
+
+      public  void RotateTowardsNearestEnemy()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, DetectionRange);
+            Transform nearestEnemy = null;
+            float nearestDistance = float.MaxValue;
+
+            foreach (var collider in hitColliders)
+            {
+                if (collider.CompareTag("Enemy"))
+                {
+                    float distance = Vector3.Distance(transform.position, collider.transform.position);
+                    if (distance < nearestDistance)
+                    {
+                        nearestDistance = distance;
+                        nearestEnemy = collider.transform;
+                    }
+                }
+            }
+
+            if (nearestEnemy != null)
+            {
+                Vector3 direction = (nearestEnemy.position - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            }
+        }
+    
     public void ShootBullet()
     {
         if (BulletPrefab != null)
