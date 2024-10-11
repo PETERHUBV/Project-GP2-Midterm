@@ -33,7 +33,7 @@ public class Spawner : MonoBehaviour
             Random.Range(-SpawnRange, SpawnRange)
         );
 
-        // Instantiate the enemy prefab at the calculated position
+       
         Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
     }
 }
