@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject EnemyPrefab; 
+    public GameObject EnemyPrefab;
+    public GameObject EnemyPrefab1;
     public float SpawnInterval = 2f; 
     public float SpawnRange = 10f; 
 
@@ -33,7 +34,8 @@ public class Spawner : MonoBehaviour
             Random.Range(-SpawnRange, SpawnRange)
         );
 
-       
+
         Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
+        Instantiate(EnemyPrefab1, spawnPosition, Quaternion.identity);
     }
 }
