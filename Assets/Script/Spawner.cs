@@ -5,8 +5,8 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject EnemyPrefab;
-    public GameObject EnemyPrefab1;
-    public float SpawnInterval = 2f; 
+    
+    public float SpawnInterval = 5f; 
     public float SpawnRange = 10f; 
 
     // Start is called before the first frame update
@@ -36,6 +36,6 @@ public class Spawner : MonoBehaviour
 
 
         Instantiate(EnemyPrefab, spawnPosition, Quaternion.identity);
-        Instantiate(EnemyPrefab1, spawnPosition, Quaternion.identity);
+      
     }
 }

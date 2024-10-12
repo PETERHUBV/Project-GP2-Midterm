@@ -5,35 +5,42 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public Color BulletColor;
+    public float speed = 3f;
 
 
+    private void Start()
+    {
+        Destroy(gameObject, 16f);
+    }
+    private void Update()
+    {
+        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+    }
     public void SetColor(Color color)
     {
         BulletColor = color;
         GetComponent<Renderer>().material.color = BulletColor;
     }
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        Enemy enemy = other.GetComponent<Enemy>();
-        if (enemy != null)
+        if (other.CompareTag("Enemy"))
         {
-            Color enemyColor = enemy.GetColor();
-
-
-            if (enemyColor == Color.red || enemyColor == Color.yellow)
+            Enemy enemy = other.GetComponent<Enemy>();
+            if (enemy != null)
             {
-                HandleCollision(enemyColor, enemy);
+                if (enemy.GetColor() == BulletColor)
+                {
+                    Debug.Log("Enemy destroyed!");
+                    Destroy(enemy.gameObject);
+                    Destroy(gameObject);
+                }
+                else
+                {
+                   
+                    Destroy(gameObject);
+                }
             }
         }
     }
-    void HandleCollision(Color enemyColor, Enemy enemy)
-    {
-        if (enemyColor == BulletColor)
-        {
-            Destroy(enemy.gameObject);
-        }
-
-            Destroy(gameObject);
-        }
-    }
+}

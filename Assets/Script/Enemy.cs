@@ -5,17 +5,20 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     public Color EnemyColor;
+    public float MoveSpeed = 1f; 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        EnemyColor = Random.value > 0.5 ? Color.red : Color.yellow;
-        GetComponent<Renderer>().material.color = EnemyColor;
-    }
-
-    // Update is called once per frame
-   public Color GetColor()
+    public Color GetColor()
     {
         return EnemyColor;
+    }
+
+    private void Update()
+    {
+       
+        Player player = FindObjectOfType<Player>();
+        if (player != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, MoveSpeed * Time.deltaTime);
+        }
     }
 }
